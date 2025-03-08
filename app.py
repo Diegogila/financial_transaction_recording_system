@@ -69,5 +69,10 @@ def search_transactions():
     
     return render_template('search.html')
 
+@app.route('/balance')
+def total_balance():
+    balance = f"Total Balance: {sum([trans['amount'] for trans in transactions])}"
+    return render_template('transactions.html', transactions=transactions, total_balance=balance)
+
 if __name__ == "__main__":
     app.run(debug=True)

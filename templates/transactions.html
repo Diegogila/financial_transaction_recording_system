@@ -65,7 +65,7 @@
                 {% endfor %}
             </tbody>
         </table>
-
+        <h2>{{total_balance}}</h2>
         <div class="d-flex justify-content-between">
             <a class="btn btn-success" href="{{ url_for('add_transaction') }}">Add Transaction</a>
             <a class="btn btn-success" href="{{ url_for('search_transactions') }}">Search Transaction</a>
