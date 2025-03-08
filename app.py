@@ -5,8 +5,8 @@ app = Flask(__name__)
 # Sample data
 transactions = [
     {'id': 1, 'date': '2023-06-01', 'amount': 100.0},
-    {'id': 2, 'date': '2023-06-02', 'amount': -200.0},
-    {'id': 3, 'date': '2023-06-03', 'amount': 300.0}
+    {'id': 2, 'date': '2023-06-02', 'amount': -300.0},
+    {'id': 3, 'date': '2023-06-03', 'amount': 800.0}
 ]
 
 @app.route('/')
@@ -57,7 +57,17 @@ def delete_transaction(transaction_id):
             transactions.remove(transaction)
 
             return redirect(url_for('get_transactions'))
-        
+
+@app.route('/search', methods=['GET','POST'])
+def search_transactions():
+    if request.method == 'POST':
+        min_amount = float(request.form['min_amount'])
+        max_amount = float(request.form['max_amount'])
+
+        filtered_transactions = [transaction for transaction in transactions if transaction['amount']>=min_amount and transaction['amount']<=max_amount]
+        return render_template('transactions.html',transactions= filtered_transactions)
+    
+    return render_template('search.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
